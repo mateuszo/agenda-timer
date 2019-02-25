@@ -3,26 +3,39 @@ import './App.css';
 import './model/AgendaItem'
 import { AgendaItem } from './model/AgendaItem';
 import { minutesToString } from './utils/utils';
+import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <form>
-          <label>
-            Name:
-            <input type="text" name="name" />
-          </label>
-          <label>
-            Duration:
-            <input type="number" name="duration" />
-          </label>
-          <input type="submit" value="Add" />
-        </form>
+      <Container>
+        <NewItemForm />
         <ItemList />
+      </Container>
       </div>
     );
   }
+}
+
+
+class NewItemForm extends Component {
+  render() {
+    return (
+    <Form inline>
+        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+          <Label for="name" className="mr-sm-2">Name:</Label>
+          <Input type="text" name="name" id="name" placeholder="boring stuff" />
+        </FormGroup>
+        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+          <Label for="duration" className="mr-sm-2">Duration:</Label>
+          <Input type="number" name="duration" id="duration" placeholder="33" />
+        </FormGroup>
+        <Button>Add</Button>
+      </Form>
+    )
+  }
+
 }
 
 class ItemList extends Component {
