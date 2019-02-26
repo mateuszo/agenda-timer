@@ -6,12 +6,30 @@ import { minutesToString } from './utils/utils';
 import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [
+        new AgendaItem("greetings", 3),
+        new AgendaItem("discussion", 15),
+        new AgendaItem("goodbye", 13),
+        new AgendaItem("long item", 63),
+      ],
+    };
+    this.addItem = this.addItem.bind(this);
+  }
+
+  addItem(item){
+    this.setState({items: [...this.state.items, item]});
+    console.log(this.state);
+  }
+
   render() {
     return (
       <div className="App">
       <Container>
-        <NewItemForm />
-        <ItemList />
+        <NewItemForm addItem={this.addItem} />
+        <ItemList items={this.state.items} />
       </Container>
       </div>
     );
@@ -23,7 +41,6 @@ class NewItemForm extends Component {
   constructor(props) {
     super(props);
     this.state = {name: '', duration: 0};
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -39,7 +56,8 @@ class NewItemForm extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
+    const item = new AgendaItem(this.state.name, parseInt(this.state.duration));
+    this.props.addItem(item);
     event.target.reset();
     event.preventDefault();
   }
@@ -63,24 +81,13 @@ class NewItemForm extends Component {
 }
 
 class ItemList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [
-        new AgendaItem("greetings", 3),
-        new AgendaItem("discussion", 15),
-        new AgendaItem("goodbye", 13),
-        new AgendaItem("long item", 63),
-      ],
-    };
-  }
 
   render() {
-    const listItems = this.state.items.map(
+    const listItems = this.props.items.map(
       (item) => <Item item={item} />        
     );
 
-    const total = minutesToString(this.state.items
+    const total = minutesToString(this.props.items
       .map( (item) => item.duration)
       .reduce( (prev, curr) => prev + curr
     ));
