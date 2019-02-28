@@ -17,6 +17,7 @@ class App extends Component {
       ],
     };
     this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   addItem(item){
@@ -24,12 +25,16 @@ class App extends Component {
     console.log(this.state);
   }
 
+  deleteItem(item){
+    this.setState({items: this.state.items.filter(it => it !== item)});
+  }
+
   render() {
     return (
       <div className="App">
       <Container>
         <NewItemForm addItem={this.addItem} />
-        <ItemList items={this.state.items} />
+        <ItemList items={this.state.items} deleteItem={this.deleteItem}/>
       </Container>
       </div>
     );
@@ -84,7 +89,7 @@ class ItemList extends Component {
 
   render() {
     const listItems = this.props.items.map(
-      (item) => <Item item={item} />        
+      (item) => <Item item={item} deleteItem={this.props.deleteItem}/>        
     );
 
     const total = minutesToString(this.props.items
@@ -104,9 +109,20 @@ class ItemList extends Component {
 }
 
 class Item extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteThis = this.deleteThis.bind(this);
+  }
+
+  deleteThis(){
+    this.props.deleteItem(this.props.item);
+  }
+
   render() {
     return (
-      <li>{this.props.item.name} - {minutesToString(this.props.item.duration)}</li>
+      <li>{this.props.item.name} - {minutesToString(this.props.item.duration)} <i onClick={this.deleteThis} class="material-icons">
+      delete
+      </i></li>
     )
   }
 }
