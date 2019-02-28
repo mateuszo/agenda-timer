@@ -88,6 +88,11 @@ class NewItemForm extends Component {
 class ItemList extends Component {
 
   render() {
+    if(this.props.items.length === 0){
+      return(<div>No items :(</div>);
+    }
+
+
     const listItems = this.props.items.map(
       (item) => <Item item={item} deleteItem={this.props.deleteItem}/>        
     );
