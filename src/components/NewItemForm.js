@@ -53,8 +53,7 @@ class NewItemForm extends Component {
     handleSubmit(event) {
       const item = new AgendaItem(this.state.name, parseInt(this.state.duration));
       this.props.addItem(item);
-      // event.target.reset();
-      event.preventDefault();
+      this.setState({name: '', duration: 0});
     }
   
     render() {
