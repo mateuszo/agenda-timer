@@ -49,6 +49,12 @@ class NewItemForm extends Component {
         [name]: value
       });
     }
+
+    handleKeyPress = (event) => {
+      if(event.key === 'Enter'){
+        this.handleSubmit(event);
+      }
+    }
   
     handleSubmit(event) {
       const item = new AgendaItem(this.state.name, parseInt(this.state.duration));
@@ -73,6 +79,7 @@ class NewItemForm extends Component {
             className={this.classes.textField}
             value={this.state.duration}
             onChange={this.handleInputChange}
+            onKeyPress={this.handleKeyPress}
             type="number"
             margin="normal"
           />
