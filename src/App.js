@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container } from 'reactstrap';
 import './App.css';
 import './model/AgendaItem'
 import AgendaItem from './model/AgendaItem';
@@ -33,10 +32,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <Container>
         <NewItemForm addItem={this.addItem} />
         <ItemList items={this.state.items} deleteItem={this.deleteItem}/>
-      </Container>
       </div>
     );
   }
