@@ -26,12 +26,12 @@ class App extends Component {
       items: generateItems(),
     };
     this.addItem = this.addItem.bind(this);
+    this.updateItem = this.addItem;
     this.deleteItem = this.deleteItem.bind(this);
   }
 
   addItem(item){
     this.setState({items: this.state.items.set(item.id, item)});
-    console.log(this.state);
   }
 
   deleteItem(item){
@@ -42,7 +42,7 @@ class App extends Component {
     return (
       <div className="App">
         <NewItemForm addItem={this.addItem} />
-        <ItemList items={this.state.items} deleteItem={this.deleteItem}/>
+        <ItemList items={this.state.items} deleteItem={this.deleteItem} updateItem={this.updateItem}/>
       </div>
     );
   }

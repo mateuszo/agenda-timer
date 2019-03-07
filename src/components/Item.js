@@ -6,22 +6,42 @@ class Item extends Component {
     constructor(props) {
       super(props);
       this.deleteThis = this.deleteThis.bind(this);
+      this.handleNameChange = this.handleNameChange.bind(this);
+      this.handleDurationChange = this.handleDurationChange.bind(this);
+
     }
   
     deleteThis(){
       this.props.deleteItem(this.props.item);
     }
+
+    handleNameChange(event){
+      const item = this.props.item;
+      item.name = event.target.value;
+      this.props.updateItem(item);
+    }
+
+    handleDurationChange(event){
+      const item = this.props.item;
+      item.duration = parseInt(event.target.value);
+      this.props.updateItem(item);
+    }
+
+
+
   
     render() {
       return (
-        <ListItem button>
+        <ListItem key={this.props.item.id} button>
           <Input
-            value={this.props.item.name}
+            defaultValue={this.props.item.name}
             inputProps={{'aria-label': 'Name',}}
+            onChange={this.handleNameChange}
           />
           <Input
-            value={this.props.item.duration}
+            defaultValue={this.props.item.duration}
             inputProps={{'aria-label': 'Duration',}}
+            onChange={this.handleDurationChange}
             type="number"
           />
           <i onClick={this.deleteThis} class="material-icons">delete</i>
