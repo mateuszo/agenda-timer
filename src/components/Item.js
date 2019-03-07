@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ListItem from '@material-ui/core/ListItem';
+import Input from '@material-ui/core/Input';
 
 import { minutesToString } from '../utils/utils';
 
@@ -16,10 +17,16 @@ class Item extends Component {
     render() {
       return (
         <ListItem button>
-          {this.props.item.name} - {minutesToString(this.props.item.duration)} 
-          <i onClick={this.deleteThis} class="material-icons">
-          delete
-          </i>
+          <Input
+            defaultValue={this.props.item.name}
+            inputProps={{'aria-label': 'Name',}}
+          />
+          <Input
+            defaultValue={this.props.item.duration}
+            inputProps={{'aria-label': 'Duration',}}
+            type="number"
+          />
+          <i onClick={this.deleteThis} class="material-icons">delete</i>
         </ListItem>
       )
     }
