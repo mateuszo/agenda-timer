@@ -20,20 +20,20 @@ class ItemList extends Component {
     this.classes = props.classes;
   }
 
-
-
   render() {
-    if(this.props.items.length === 0){
+    console.log(this.props.items);
+    
+    if(this.props.items.size === 0){
       return(<div>No items :(</div>);
     }
 
-
-    const listItems = this.props.items.map(
-      (item) => <Item item={item} deleteItem={this.props.deleteItem}/>        
+    const listItems = Array.from(this.props.items).map(
+      ([key, item]) => <Item id={key} item={item} deleteItem={this.props.deleteItem}/>        
     );
 
-    const total = minutesToString(this.props.items
-      .map( (item) => item.duration)
+    const total = minutesToString(
+      Array.from(this.props.items)
+      .map( ([key, item]) => item.duration)
       .reduce( (prev, curr) => prev + curr
     ));
 

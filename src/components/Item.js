@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import Input from '@material-ui/core/Input';
 
-import { minutesToString } from '../utils/utils';
-
 class Item extends Component {
     constructor(props) {
       super(props);
