@@ -18,11 +18,11 @@ class Item extends Component {
       return (
         <ListItem button>
           <Input
-            defaultValue={this.props.item.name}
+            value={this.props.item.name}
             inputProps={{'aria-label': 'Name',}}
           />
           <Input
-            defaultValue={this.props.item.duration}
+            value={this.props.item.duration}
             inputProps={{'aria-label': 'Duration',}}
             type="number"
           />
