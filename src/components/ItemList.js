@@ -28,7 +28,7 @@ class ItemList extends Component {
     }
 
     const listItems = Array.from(this.props.items).map(
-      ([key, item]) => <Item id={key} item={item} deleteItem={this.props.deleteItem} updateItem={this.props.updateItem}/>        
+      ([key, item]) => <Item key={key} item={item} deleteItem={this.props.deleteItem} updateItem={this.props.updateItem}/>        
     );
 
     const total = minutesToString(

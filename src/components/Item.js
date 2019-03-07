@@ -44,7 +44,7 @@ class Item extends Component {
             onChange={this.handleDurationChange}
             type="number"
           />
-          <i onClick={this.deleteThis} class="material-icons">delete</i>
+          <i onClick={this.deleteThis} className="material-icons">delete</i>
         </ListItem>
       )
     }
