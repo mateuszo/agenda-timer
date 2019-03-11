@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import './model/AgendaItem'
 import AgendaItem from './model/AgendaItem';
-import { NewItemForm, ItemList } from './components';
+import { ItemList } from './components';
 import { Map } from 'immutable';
 
 function generateItems(){
@@ -25,12 +25,11 @@ class App extends Component {
     this.state = {
       items: generateItems(),
     };
-    this.addItem = this.addItem.bind(this);
-    this.updateItem = this.addItem;
+    this.updateItem = this.updateItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
   }
 
-  addItem(item){
+  updateItem(item){
     this.setState({items: this.state.items.set(item.id, item)});
   }
 
@@ -41,7 +40,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NewItemForm addItem={this.addItem} />
         <ItemList items={this.state.items} deleteItem={this.deleteItem} updateItem={this.updateItem}/>
       </div>
     );

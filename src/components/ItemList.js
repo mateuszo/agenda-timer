@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Item from './Item';
 import { minutesToString } from '../utils/utils';
+import AgendaItem from "../model/AgendaItem";
 
 const styles = theme => ({
   root: {
@@ -21,27 +22,26 @@ class ItemList extends Component {
   }
 
   render() {
-    console.log(this.props.items);
-    
-    if(this.props.items.size === 0){
-      return(<div>No items :(</div>);
-    }
 
     const listItems = Array.from(this.props.items).map(
-      ([key, item]) => <Item key={key} item={item} deleteItem={this.props.deleteItem} updateItem={this.props.updateItem}/>        
+      ([key, item]) => <Item key={key} item={item} buttonAction={this.props.deleteItem} buttonType={"delete"} updateItem={this.props.updateItem}/>
     );
 
     const total = minutesToString(
       Array.from(this.props.items)
       .map( ([key, item]) => item.duration)
-      .reduce( (prev, curr) => prev + curr
+      .reduce( (prev, curr) => prev + curr, 0
     ));
+
+    const newItem = new AgendaItem("", 0);
 
     return (
       <div className={this.classes.root}>
         <List component="nav">
           {listItems}
+          <Item key={newItem.id} item={newItem} buttonAction={this.props.updateItem} buttonType={"save"} updateItem={() => {}} />
         </List>
+
         <div>Total: {total}</div>
       </div>
     )

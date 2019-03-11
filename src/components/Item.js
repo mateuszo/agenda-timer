@@ -5,14 +5,14 @@ import Input from '@material-ui/core/Input';
 class Item extends Component {
     constructor(props) {
       super(props);
-      this.deleteThis = this.deleteThis.bind(this);
+      this.buttonAction = this.buttonAction.bind(this);
       this.handleNameChange = this.handleNameChange.bind(this);
       this.handleDurationChange = this.handleDurationChange.bind(this);
 
     }
-  
-    deleteThis(){
-      this.props.deleteItem(this.props.item);
+
+    buttonAction(){
+      this.props.buttonAction(this.props.item);
     }
 
     handleNameChange(event){
@@ -26,7 +26,6 @@ class Item extends Component {
       item.duration = parseInt(event.target.value);
       this.props.updateItem(item);
     }
-
 
 
   
@@ -44,7 +43,7 @@ class Item extends Component {
             onChange={this.handleDurationChange}
             type="number"
           />
-          <i onClick={this.deleteThis} className="material-icons">delete</i>
+          <i onClick={this.buttonAction} className="material-icons">{this.props.buttonType}</i>
         </ListItem>
       )
     }
