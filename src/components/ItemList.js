@@ -47,7 +47,11 @@ class ItemList extends Component {
             <div className={this.classes.root}>
                 <List component="nav">
                     {this.renderItemList()}
-                    <Item key={newItem.id} item={newItem} buttonAction={this.props.updateItem} buttonType={"save"} updateItem={() => {}} />
+                    <Item key={newItem.id}
+                          item={newItem}
+                          buttonAction={this.props.updateItem}
+                          buttonType={"save"}
+                          updateItem={() => {}} />
                 </List>
 
                 <div>Total: {this.calculateTotalTime()}</div>
