@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import './model/AgendaItem'
 import AgendaItem from './model/AgendaItem';
-import { ItemList } from './components';
+import { ItemList, Timer } from './components';
 import { Map } from 'immutable';
 
 function generateItems(){
@@ -41,6 +41,7 @@ class App extends Component {
         return (
             <div className="App">
                 <ItemList items={this.state.items} deleteItem={this.deleteItem} updateItem={this.updateItem}/>
+                <Timer />
             </div>
         );
     }
