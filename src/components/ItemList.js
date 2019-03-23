@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 
 import Item from './Item';
-import { minutesToString } from '../utils/utils';
+import { minutesToString, sumMap } from '../utils/utils';
 import AgendaItem from "../model/AgendaItem";
 
 const styles = theme => ({
@@ -15,6 +15,7 @@ const styles = theme => ({
     },
 });
 
+
 class ItemList extends Component {
     constructor(props){
         super(props);
@@ -23,10 +24,7 @@ class ItemList extends Component {
 
     calculateTotalTime() {
         return minutesToString(
-            Array.from(this.props.items)
-                .map(([key, item]) => item.duration)
-                .reduce((prev, curr) => prev + curr, 0
-                ));
+            sumMap(this.props.items));
     }
 
     renderItemList() {
