@@ -58,8 +58,8 @@ class App extends Component {
                     <Route path="/timer"
                            render={() =>
                                (<div>
-                                   <Agenda items={this.state.items}/>
                                    <Link to="/">Go home</Link>
+                                   <Agenda items={this.state.items}/>
                                </div>)
                            }/>
                 </div>

@@ -24,7 +24,7 @@ class Item extends Component {
     handleDurationChange(event){
         const item = this.props.item;
         item.duration = parseInt(event.target.value);
-        item.timeLeft = item.duration;
+        item.timeLeft = item.duration * 60;
         this.props.updateItem(item);
     }
 

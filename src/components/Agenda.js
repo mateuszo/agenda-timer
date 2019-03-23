@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Timer from "./Timer";
-import {minutesToString} from "../utils/utils";
+import {secondsToString} from "../utils/utils";
+import Button from '@material-ui/core/Button';
 
 export default class Agenda extends Component {
 
@@ -19,7 +20,7 @@ export default class Agenda extends Component {
 
     renderItemList() {
         return this.props.items.map(
-            (item) => (<li key={item.id}>{item.name} - {minutesToString(item.timeLeft)}</li>)
+            (item) => (<li key={item.id}>{item.name} - {secondsToString(item.timeLeft)}</li>)
         );
     }
 
@@ -30,8 +31,12 @@ export default class Agenda extends Component {
                 <ol>
                     {this.renderItemList()}
                 </ol>
-                <h1>Current item: {this.getCurrentItem().name}</h1>
-                <Timer secondsLeft={this.getCurrentItem().duration * 60}/>
+                <Timer item={this.getCurrentItem()} />
+                <br/>
+                <Button variant="contained"
+                        onClick={() => this.setState({currentItemIndex: this.state.currentItemIndex + 1})}>
+                    Next
+                </Button>
             </div>
         )
     }

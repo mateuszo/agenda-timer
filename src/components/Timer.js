@@ -1,37 +1,43 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default class Timer extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            secondsLeft: this.props.secondsLeft,
+            item: this.props.item,
         }
     }
 
     tick = () => {
-        if(this.state.secondsLeft > 0){
-            this.setState({
-                secondsLeft: this.state.secondsLeft - 1
-            });
-        } else {
-            clearInterval(this.interval);
-        }
+        this.state.item.tick();
+        this.forceUpdate();
     };
 
     componentDidMount() {
-        this.interval = setInterval(this.tick , 1000);
+        this.interval = setInterval(this.tick, 1000);
     }
 
-    getProgress = () => 100*(this.props.secondsLeft - this.state.secondsLeft)/this.props.secondsLeft;
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.item.id !== prevProps.item.id) {
+            this.setState({item: this.props.item});
+        }
+    }
+
+    getProgress = () => 100 * (this.props.item.duration * 60 - this.state.item.timeLeft) / (this.props.item.duration * 60);
 
 
     render() {
         return (
             <div>
-                <h1>{this.state.secondsLeft}</h1>
-                <LinearProgress variant="determinate" value={this.getProgress()} />
+                Current item: <strong>{this.state.item.name}</strong><br/>
+                Time left: <strong>{this.state.item.timeLeft}</strong>
+                <LinearProgress variant="determinate" value={this.getProgress()}/>
             </div>
         )
     }
