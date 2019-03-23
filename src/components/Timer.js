@@ -9,12 +9,18 @@ export default class Timer extends Component {
         }
     }
 
-    componentDidMount() {
-        this.interval = setInterval(() => {
+    tick = () => {
+        if(this.state.secondsLeft > 0){
             this.setState({
                 secondsLeft: this.state.secondsLeft - 1
             });
-        }, 1000);
+        } else {
+            clearInterval(this.interval);
+        }
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(this.tick , 1000);
     }
 
     render() {
