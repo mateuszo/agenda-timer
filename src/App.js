@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import './model/AgendaItem'
 import AgendaItem from './model/AgendaItem';
-import {ItemList, Timer} from './components';
 import {List} from 'immutable';
+import {Agenda, ItemList} from './components';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 function generateItems() {
@@ -58,7 +58,7 @@ class App extends Component {
                     <Route path="/timer"
                            render={() =>
                                (<div>
-                                   <Timer secondsLeft={AgendaItem.calculateTotal(this.state.items)*60}/>
+                                   <Agenda items={this.state.items}/>
                                    <Link to="/">Go home</Link>
                                </div>)
                            }/>

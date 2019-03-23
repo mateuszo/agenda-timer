@@ -5,6 +5,8 @@ export default class AgendaItem {
         this.id = uuidv1();
         this.name = name;
         this.duration = duration;
+        this.timeLeft = duration;
+        this.isFinished = false;
     };
 
     static calculateTotal = (items) =>
