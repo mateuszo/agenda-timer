@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import List from '@material-ui/core/List';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 
 import Item from './Item';
-import { minutesToString, sumMap } from '../utils/utils';
+import {minutesToString} from '../utils/utils';
 import AgendaItem from "../model/AgendaItem";
 
 const styles = theme => ({
@@ -17,23 +17,23 @@ const styles = theme => ({
 
 
 class ItemList extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.classes = props.classes;
     }
 
     calculateTotalTime() {
         return minutesToString(
-            sumMap(this.props.items));
+            AgendaItem.calculateTotal(this.props.items));
     }
 
     renderItemList() {
-        return Array.from(this.props.items).map(
-            ([key, item]) => <Item key={key}
-                                   item={item}
-                                   buttonAction={this.props.deleteItem}
-                                   buttonType={"delete"}
-                                   updateItem={this.props.updateItem}/>
+        return this.props.items.map(
+            (item) => <Item key={item.id}
+                            item={item}
+                            buttonAction={this.props.deleteItem}
+                            buttonType={"delete"}
+                            updateItem={this.props.updateItem}/>
         );
     }
 
@@ -47,9 +47,10 @@ class ItemList extends Component {
                     {this.renderItemList()}
                     <Item key={newItem.id}
                           item={newItem}
-                          buttonAction={this.props.updateItem}
+                          buttonAction={this.props.addItem}
                           buttonType={"save"}
-                          updateItem={() => {}} />
+                          updateItem={() => {
+                          }}/>
                 </List>
 
                 <div>Total: {this.calculateTotalTime()}</div>

@@ -3,9 +3,8 @@ import './App.css';
 import './model/AgendaItem'
 import AgendaItem from './model/AgendaItem';
 import {ItemList, Timer} from './components';
-import {Map} from 'immutable';
+import {List} from 'immutable';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import {sumMap} from "./utils/utils";
 
 function generateItems() {
     const items = [
@@ -14,11 +13,7 @@ function generateItems() {
         new AgendaItem("goodbye", 13),
         new AgendaItem("long item", 63),
     ];
-    let itemMap = new Map();
-    for (let item of items) {
-        itemMap = itemMap.set(item.id, item);
-    }
-    return itemMap;
+    return List(items);
 }
 
 class App extends Component {
@@ -29,14 +24,20 @@ class App extends Component {
         };
         this.updateItem = this.updateItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
+        this.addItem = this.addItem.bind(this);
     }
 
     updateItem(item) {
-        this.setState({items: this.state.items.set(item.id, item)});
+        this.setState({items: this.state.items.map((it) => it.id === item.id ? item : it)});
     }
 
     deleteItem(item) {
-        this.setState({items: this.state.items.delete(item.id)});
+        this.setState({items: this.state.items.filter((it) => it.id !== item.id)});
+    }
+
+
+    addItem(item) {
+        this.setState({items: this.state.items.push(item)})
     }
 
     render() {
@@ -48,7 +49,8 @@ class App extends Component {
                                (<div>
                                    <ItemList items={this.state.items}
                                              deleteItem={this.deleteItem}
-                                             updateItem={this.updateItem}/>
+                                             updateItem={this.updateItem}
+                                             addItem={this.addItem}/>
                                    <Link to="/timer">Start the Timer</Link>
                                </div>)
                            }/>
@@ -56,7 +58,7 @@ class App extends Component {
                     <Route path="/timer"
                            render={() =>
                                (<div>
-                                   <Timer secondsLeft={sumMap(this.state.items)*60}/>
+                                   <Timer secondsLeft={AgendaItem.calculateTotal(this.state.items)*60}/>
                                    <Link to="/">Go home</Link>
                                </div>)
                            }/>

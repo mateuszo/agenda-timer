@@ -6,4 +6,7 @@ export default class AgendaItem {
         this.name = name;
         this.duration = duration;
     };
+
+    static calculateTotal = (items) =>
+        items.map((item) => item.duration).reduce((prev, curr) => prev + curr, 0);
 }
