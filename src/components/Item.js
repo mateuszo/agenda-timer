@@ -23,8 +23,8 @@ class Item extends Component {
 
     handleDurationChange(event){
         const item = this.props.item;
-        item.duration = parseInt(event.target.value);
-        item.timeLeft = item.duration * 60;
+        item.duration = parseInt(event.target.value) * 60;
+        item.timeLeft = item.duration;
         this.props.updateItem(item);
     }
 
@@ -39,7 +39,7 @@ class Item extends Component {
                     onChange={this.handleNameChange}
                 />
                 <Input
-                    defaultValue={this.props.item.duration}
+                    defaultValue={this.props.item.getMinutes()}
                     inputProps={{'aria-label': 'Duration',}}
                     onChange={this.handleDurationChange}
                     type="number"

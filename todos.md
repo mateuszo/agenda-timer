@@ -5,6 +5,6 @@
 [ ] save meeting data in url
 [x] add router
 [x] create a timer
-[ ] make common time base (seconds)
+[x] make common time base (seconds)
 [ ] refactor!
 [ ] tests!

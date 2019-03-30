@@ -29,7 +29,7 @@ export default class Timer extends Component {
         }
     }
 
-    getProgress = () => 100 * (this.props.item.duration * 60 - this.state.item.timeLeft) / (this.props.item.duration * 60);
+    getProgress = () => 100 * (this.props.item.duration - this.state.item.timeLeft) / (this.props.item.duration);
 
 
     render() {

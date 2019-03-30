@@ -5,9 +5,13 @@ export default class AgendaItem {
         this.id = uuidv1();
         this.name = name;
         this.duration = duration;
-        this.timeLeft = duration * 60;
+        this.timeLeft = duration;
         this.isFinished = false;
     };
+
+    getMinutes(){
+        return this.duration / 60;
+    }
 
     tick() {
         this.timeLeft--;

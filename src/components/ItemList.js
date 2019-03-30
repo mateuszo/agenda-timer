@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 
 import Item from './Item';
-import {minutesToString} from '../utils/utils';
+import {secondsToString} from '../utils/utils';
 import AgendaItem from "../model/AgendaItem";
 
 const styles = theme => ({
@@ -23,7 +23,7 @@ class ItemList extends Component {
     }
 
     calculateTotalTime() {
-        return minutesToString(
+        return secondsToString(
             AgendaItem.calculateTotal(this.props.items));
     }
 
