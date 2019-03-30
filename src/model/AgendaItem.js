@@ -17,6 +17,15 @@ export default class AgendaItem {
         this.timeLeft--;
     }
 
-    static calculateTotal = (items) =>
-        items.map((item) => item.duration).reduce((prev, curr) => prev + curr, 0);
+    static calculateTotalDuration = (items) =>
+        AgendaItem.calculateTotal(items, (item) => item.duration);
+
+    static calculateTotalTimeLeft = (items) =>
+        AgendaItem.calculateTotal(items, (item) => item.timeLeft);
+
+
+    static calculateTotal = (items, getter) =>
+        items.map((item) => getter(item)).reduce((prev, curr) => prev + curr, 0);
+
+
 }

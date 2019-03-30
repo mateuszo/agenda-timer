@@ -24,7 +24,7 @@ class ItemList extends Component {
 
     calculateTotalTime() {
         return secondsToString(
-            AgendaItem.calculateTotal(this.props.items));
+            AgendaItem.calculateTotalDuration(this.props.items));
     }
 
     renderItemList() {

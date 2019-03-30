@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import {secondsToString} from "../utils/utils";
 
 export default class Timer extends Component {
 
@@ -36,7 +37,7 @@ export default class Timer extends Component {
         return (
             <div>
                 Current item: <strong>{this.state.item.name}</strong><br/>
-                Time left: <strong>{this.state.item.timeLeft}</strong>
+                Time left: <strong>{secondsToString(this.state.item.timeLeft)}</strong>
                 <LinearProgress variant="determinate" value={this.getProgress()}/>
             </div>
         )
