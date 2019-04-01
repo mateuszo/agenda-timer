@@ -27,6 +27,15 @@ export default class Agenda extends Component {
         );
     }
 
+    tick = () => {
+        this.getCurrentItem().tick();
+        this.forceUpdate();
+    };
+
+    componentDidMount() {
+        this.interval = setInterval(this.tick, 1000);
+    }
+
 
     render() {
         return (
