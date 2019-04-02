@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Timer from "./Timer";
 import {secondsToString} from "../utils/utils";
 import Button from '@material-ui/core/Button';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import AgendaItem from '../model/AgendaItem';
 
@@ -22,14 +21,14 @@ export default class Agenda extends Component {
 
 
     renderItemList() {
-        return this.props.items.map(
+        return this.state.items.map(
             (item) => (<li key={item.id}>{item.name} - {secondsToString(item.timeLeft)}</li>)
         );
     }
 
     tick = () => {
-        this.getCurrentItem().tick();
-        this.forceUpdate();
+        const currentItem = this.getCurrentItem();
+        this.setState({items: this.state.items.map((it) => it.id === currentItem.id ? currentItem.tick() : it)});
     };
 
     componentDidMount() {

@@ -1,20 +1,71 @@
 import uuidv1 from 'uuid/v1';
 
 export default class AgendaItem {
-    constructor(name, duration){
-        this.id = uuidv1();
-        this.name = name;
-        this.duration = duration;
-        this.timeLeft = duration;
-        this.isFinished = false;
+    constructor(builder){
+        this.id = builder.id;
+        this.name = builder.name;
+        this.duration = builder.duration;
+        this.timeLeft = builder.timeLeft !== undefined ? builder.timeLeft : builder.duration;
+        Object.freeze(this)
     };
 
     getMinutes(){
         return this.duration / 60;
     }
 
+    setName(name){
+        return new AgendaItem.Builder()
+            .fromAgendaItem(this)
+            .withName(name)
+            .build();
+    }
+
+    setDuration(duration){
+        return new AgendaItem.Builder()
+            .fromAgendaItem(this)
+            .withDuration(duration)
+            .withTimeLeft(duration)
+            .build();
+    }
+
     tick() {
-        this.timeLeft--;
+        return new AgendaItem.Builder()
+            .fromAgendaItem(this)
+            .withTimeLeft(this.timeLeft - 1)
+            .build();
+    }
+
+    static get Builder(){
+        class Builder {
+            constructor(id = uuidv1()){
+                this.id = id;
+            }
+
+            fromAgendaItem(item){
+                Object.assign(this, item);
+                return this;
+            }
+
+            withName(name){
+                this.name = name;
+                return this;
+            }
+
+            withDuration(duration){
+                this.duration = duration;
+                return this;
+            }
+
+            withTimeLeft(timeLeft){
+                this.timeLeft = timeLeft;
+                return this;
+            }
+
+            build(){
+                return new AgendaItem(this);
+            }
+        }
+        return Builder
     }
 
     static calculateTotalDuration = (items) =>

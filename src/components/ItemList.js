@@ -39,7 +39,7 @@ class ItemList extends Component {
 
     render() {
 
-        const newItem = new AgendaItem("", 0);
+        const newItem = new AgendaItem.Builder().withName("").withDuration(0).build();
 
         return (
             <div className={this.classes.root}>

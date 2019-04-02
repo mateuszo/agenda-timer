@@ -5,30 +5,35 @@ import Input from '@material-ui/core/Input';
 class Item extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            item: this.props.item
+        };
         this.buttonAction = this.buttonAction.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDurationChange = this.handleDurationChange.bind(this);
-
     }
 
     buttonAction(){
-        this.props.buttonAction(this.props.item);
+        this.props.buttonAction(this.state.item);
     }
 
     handleNameChange(event){
-        const item = this.props.item;
-        item.name = event.target.value;
-        this.props.updateItem(item);
+        const newName = event.target.value;
+        const newItem = this.state.item.setName(newName);
+        this.setState({
+            item: newItem
+        });
+        this.props.updateItem(newItem);
     }
 
     handleDurationChange(event){
-        const item = this.props.item;
-        item.duration = parseInt(event.target.value) * 60;
-        item.timeLeft = item.duration;
-        this.props.updateItem(item);
+        const newDuration = event.target.value * 60;
+        const newItem = this.state.item.setDuration(newDuration);
+        this.setState({
+            item: newItem
+        });
+        this.props.updateItem(newItem);
     }
-
-
 
     render() {
         return (

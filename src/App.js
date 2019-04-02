@@ -8,10 +8,10 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 function generateItems() {
     const items = [
-        new AgendaItem("greetings", 3*60),
-        new AgendaItem("discussion", 15*60),
-        new AgendaItem("goodbye", 13*60),
-        new AgendaItem("long item", 63*60),
+        new AgendaItem.Builder().withName("greetings").withDuration(10).build(),
+        new AgendaItem.Builder().withName("discussion").withDuration(15*60).build(),
+        new AgendaItem.Builder().withName("goodbye").withDuration(13*60).build(),
+        new AgendaItem.Builder().withName("long item").withDuration(63*60).build(),
     ];
     return List(items);
 }
