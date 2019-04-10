@@ -4,6 +4,7 @@ import {secondsToString} from "../utils/utils";
 import Button from '@material-ui/core/Button';
 
 import AgendaItem from '../model/AgendaItem';
+import TimeTable from "./TimeTable";
 
 export default class Agenda extends Component {
 
@@ -39,9 +40,7 @@ export default class Agenda extends Component {
     render() {
         return (
             <div>
-                <ol>
-                    {this.renderItemList()}
-                </ol>
+                <TimeTable items={this.state.items}/>
                 <Timer item={this.getCurrentItem()} />
                 <br/>
                 <Button variant="contained"
@@ -49,7 +48,7 @@ export default class Agenda extends Component {
                     Next
                 </Button>
 
-                Time left: <strong>{secondsToString(AgendaItem.calculateTotalTimeLeft(this.state.items))}</strong>
+                Time spent: <strong>{secondsToString(AgendaItem.calculateTotalTimeSpent(this.state.items))}</strong>
                 {/*<LinearProgress variant="determinate" value={this.getProgress()}/>*/}
             </div>
         )

@@ -6,5 +6,7 @@
 [x] add router
 [x] create a timer
 [x] make common time base (seconds)
-[ ] refactor!
+[x] refactor!
+[x] change timeLeft to timeSpent
+[ ] add styles to items over duration
 [ ] tests!

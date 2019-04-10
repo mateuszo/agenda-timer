@@ -5,12 +5,16 @@ export default class AgendaItem {
         this.id = builder.id;
         this.name = builder.name;
         this.duration = builder.duration;
-        this.timeLeft = builder.timeLeft !== undefined ? builder.timeLeft : builder.duration;
+        this.timeSpent = builder.timeSpent !== undefined ? builder.timeSpent : 0;
         Object.freeze(this)
     };
 
     getMinutes(){
         return this.duration / 60;
+    }
+
+    getTimeLeft(){
+        return this.duration - this.timeSpent;
     }
 
     setName(name){
@@ -24,14 +28,13 @@ export default class AgendaItem {
         return new AgendaItem.Builder()
             .fromAgendaItem(this)
             .withDuration(duration)
-            .withTimeLeft(duration)
             .build();
     }
 
     tick() {
         return new AgendaItem.Builder()
             .fromAgendaItem(this)
-            .withTimeLeft(this.timeLeft - 1)
+            .withTimeSpent(this.timeSpent + 1)
             .build();
     }
 
@@ -56,8 +59,8 @@ export default class AgendaItem {
                 return this;
             }
 
-            withTimeLeft(timeLeft){
-                this.timeLeft = timeLeft;
+            withTimeSpent(timeSpent){
+                this.timeSpent = timeSpent;
                 return this;
             }
 
@@ -71,8 +74,8 @@ export default class AgendaItem {
     static calculateTotalDuration = (items) =>
         AgendaItem.calculateTotal(items, (item) => item.duration);
 
-    static calculateTotalTimeLeft = (items) =>
-        AgendaItem.calculateTotal(items, (item) => item.timeLeft);
+    static calculateTotalTimeSpent = (items) =>
+        AgendaItem.calculateTotal(items, (item) => item.timeSpent);
 
 
     static calculateTotal = (items, getter) =>

@@ -19,20 +19,14 @@ test('AgendaItemModel id is unique', () => {
     }
 );
 
-test('AgendaItemModel timeLeft is duration by default', () => {
+test('AgendaItemModel timeSpent is zero by default', () => {
     const item = getItem();
-    expect(item.timeLeft).toEqual(item.duration);
-
-});
-
-test('AgendaItemModel timeLeft', () => {
-    const item = new AgendaItem.Builder().withName("testitem").withDuration(10).withTimeLeft(9).build();
-    expect(item.timeLeft).not.toEqual(item.duration);
+    expect(item.timeSpent).toEqual(0);
 });
 
 test('AgendaItemModel mutation throws an error', () => {
     const item = getItem();
-    expect(() => item.timeLeft--).toThrow(TypeError);
+    expect(() => item.timeSpent++).toThrow(TypeError);
 });
 
 test('AgendaItemModelBuilder fromAgendaItem clones an object', () => {
@@ -67,10 +61,10 @@ test('AgendaItemModel tick creates new instance', () => {
     expect(item).not.toBe(item2);
 });
 
-test('AgendaItemModel tick decreases timeLeft by one', () => {
+test('AgendaItemModel tick increases timeSpent by one', () => {
     const item = getItem();
     const item2 = item.tick();
-    expect(item2.timeLeft).toBe(item.timeLeft - 1);
+    expect(item2.timeSpent).toBe(item.timeSpent + 1);
 });
 
 

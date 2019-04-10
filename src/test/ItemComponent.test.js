@@ -29,7 +29,7 @@ test('Item component handleDurationChange calls updateItem', () => {
 });
 
 
-test.skip('Item component handleDurationChange modifies the item', () => {
+test('Item component handleDurationChange modifies the item', () => {
     //arrange
     const { component, updateItem } = setUp();
     const minutes = 6;
