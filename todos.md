@@ -10,6 +10,6 @@
 [x] change timeLeft to timeSpent
 [x] add styles to items over duration
 [x] add totals in time table
-[ ] calculate total time left
+[x] calculate total time left
 [ ] calculate expected meeting end
 [ ] tests!

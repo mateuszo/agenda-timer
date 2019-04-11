@@ -67,4 +67,34 @@ test('AgendaItemModel tick increases timeSpent by one', () => {
     expect(item2.timeSpent).toBe(item.timeSpent + 1);
 });
 
+test('AgendaItemModel calculateTimeTillTheEnd sums duration', () => {
+    const items = [
+        getItem(), getItem()
+    ];
+    const timeTillTheEnd = AgendaItem.calculateTimeTillTheEnd(items);
+    expect(timeTillTheEnd).toBe(20);
+});
 
+test('AgendaItemModel calculateTimeTillTheEnd sums duration case 2', () => {
+    const items = [
+        getItem(), getItem().setDuration(30)
+    ];
+    const timeTillTheEnd = AgendaItem.calculateTimeTillTheEnd(items);
+    expect(timeTillTheEnd).toBe(40);
+});
+
+test('AgendaItemModel calculateTimeTillTheEnd subtracts time spent', () => {
+    const items = [
+        getItem(), getItem().setDuration(30).tick()
+    ];
+    const timeTillTheEnd = AgendaItem.calculateTimeTillTheEnd(items);
+    expect(timeTillTheEnd).toBe(39);
+});
+
+test('AgendaItemModel calculateTimeTillTheEnd treats negative time spent as zero', () => {
+    const items = [
+        getItem(), getItem().setDuration(3).tick().tick().tick().tick()
+    ];
+    const timeTillTheEnd = AgendaItem.calculateTimeTillTheEnd(items);
+    expect(timeTillTheEnd).toBe(10);
+});

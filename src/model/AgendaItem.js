@@ -80,6 +80,9 @@ export default class AgendaItem {
     static calculateTotalDifference = (items) =>
         AgendaItem.calculateTotal(items, (item) => item.getTimeLeft());
 
+    static calculateTimeTillTheEnd = (items) =>
+        AgendaItem.calculateTotal(items, (item) => item.timeSpent < item.duration ? item.duration - item.timeSpent : 0);
+
     static calculateTotal = (items, getter) =>
         items.map((item) => getter(item)).reduce((prev, curr) => prev + curr, 0);
 

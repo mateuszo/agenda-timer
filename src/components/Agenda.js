@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Timer from "./Timer";
 import {secondsToString} from "../utils/utils";
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import AgendaItem from '../model/AgendaItem';
 import TimeTable from "./TimeTable";
@@ -36,6 +37,9 @@ export default class Agenda extends Component {
         this.interval = setInterval(this.tick, 1000);
     }
 
+    getProgress() {
+        return 100 * (1 - (AgendaItem.calculateTimeTillTheEnd(this.state.items) / AgendaItem.calculateTotalDuration(this.state.items)));
+    }
 
     render() {
         return (
@@ -47,9 +51,13 @@ export default class Agenda extends Component {
                         onClick={() => this.setState({currentItemIndex: this.state.currentItemIndex + 1})}>
                     Next
                 </Button>
+                <br/>
+                <br/>
 
                 Time spent: <strong>{secondsToString(AgendaItem.calculateTotalTimeSpent(this.state.items))}</strong>
-                {/*<LinearProgress variant="determinate" value={this.getProgress()}/>*/}
+                <br/>
+                Time left: <strong>{secondsToString(AgendaItem.calculateTimeTillTheEnd(this.state.items))}</strong>
+                <LinearProgress variant="determinate" value={this.getProgress()}/>
             </div>
         )
     }
