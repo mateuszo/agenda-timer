@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import classNames from 'classnames';
 import red from '@material-ui/core/colors/red';
+import {secondsToString} from "../utils/utils";
 
 const styles = theme => ({
     root: {
@@ -49,9 +50,9 @@ class TimeTable extends Component {
                                 <TableCell component="th" scope="row">
                                     {item.name}
                                 </TableCell>
-                                <TableCell align="right">{item.duration}</TableCell>
-                                <TableCell align="right">{item.timeSpent}</TableCell>
-                                <TableCell align="right">{item.duration - item.timeSpent}</TableCell>
+                                <TableCell align="right">{secondsToString(item.duration)}</TableCell>
+                                <TableCell align="right">{secondsToString(item.timeSpent)}</TableCell>
+                                <TableCell align="right">{secondsToString(item.duration - item.timeSpent)}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
