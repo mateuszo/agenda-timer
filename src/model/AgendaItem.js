@@ -77,6 +77,8 @@ export default class AgendaItem {
     static calculateTotalTimeSpent = (items) =>
         AgendaItem.calculateTotal(items, (item) => item.timeSpent);
 
+    static calculateTotalDifference = (items) =>
+        AgendaItem.calculateTotal(items, (item) => item.getTimeLeft());
 
     static calculateTotal = (items, getter) =>
         items.map((item) => getter(item)).reduce((prev, curr) => prev + curr, 0);

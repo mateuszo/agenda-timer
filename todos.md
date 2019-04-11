@@ -9,7 +9,7 @@
 [x] refactor!
 [x] change timeLeft to timeSpent
 [x] add styles to items over duration
-[ ] add totals in time table
+[x] add totals in time table
 [ ] calculate total time left
 [ ] calculate expected meeting end
 [ ] tests!
