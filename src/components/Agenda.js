@@ -14,6 +14,7 @@ export default class Agenda extends Component {
         this.state = {
             items: this.props.items,
             currentItemIndex: 0,
+            startedAt: new Date(),
         }
     }
 
@@ -41,6 +42,13 @@ export default class Agenda extends Component {
         return 100 * (1 - (AgendaItem.calculateTimeTillTheEnd(this.state.items) / AgendaItem.calculateTotalDuration(this.state.items)));
     }
 
+    getExpectedEndTime(){
+        const expectedEndMillis = this.state.startedAt.getTime()
+            + 1000 * AgendaItem.calculateTotalDuration(this.state.items)
+            + 1000 * AgendaItem.calculateTotalDelay(this.state.items);
+        return new Date(expectedEndMillis).toLocaleTimeString();
+    }
+
     render() {
         return (
             <div>
@@ -53,6 +61,9 @@ export default class Agenda extends Component {
                 </Button>
                 <br/>
                 <br/>
+
+                Meeting started at: {this.state.startedAt.toLocaleTimeString()}<br/>
+                Expected end time: {this.getExpectedEndTime()}<br/>
 
                 Time spent: <strong>{secondsToString(AgendaItem.calculateTotalTimeSpent(this.state.items))}</strong>
                 <br/>

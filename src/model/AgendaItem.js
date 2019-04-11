@@ -17,6 +17,10 @@ export default class AgendaItem {
         return this.duration - this.timeSpent;
     }
 
+    getDelay(){
+        return this.timeSpent > this.duration ? this.timeSpent - this.duration : 0;
+    }
+
     setName(name){
         return new AgendaItem.Builder()
             .fromAgendaItem(this)
@@ -82,6 +86,9 @@ export default class AgendaItem {
 
     static calculateTimeTillTheEnd = (items) =>
         AgendaItem.calculateTotal(items, (item) => item.timeSpent < item.duration ? item.duration - item.timeSpent : 0);
+
+    static calculateTotalDelay = (items) =>
+        AgendaItem.calculateTotal(items, (item) => item.getDelay());
 
     static calculateTotal = (items, getter) =>
         items.map((item) => getter(item)).reduce((prev, curr) => prev + curr, 0);

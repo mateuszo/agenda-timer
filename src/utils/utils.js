@@ -7,7 +7,7 @@ export const minutesToString = (duration) => {
 };
 
 export const secondsToString = (duration) => {
-    const sign = Math.sign(duration) > 0 ? "" : "-" ;
+    const sign = Math.sign(duration) >= 0 ? "" : "-" ;
     duration = Math.abs(duration);
     const hours = Math.floor(duration/(60*60));
     const minutes = Math.floor((duration - hours*60*60)/60);
