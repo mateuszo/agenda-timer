@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core/styles/index";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -6,6 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import classNames from 'classnames';
+import red from '@material-ui/core/colors/red';
 
 const styles = theme => ({
     root: {
@@ -16,15 +18,18 @@ const styles = theme => ({
     table: {
         minWidth: 500,
     },
+    warning: {
+        background: red[500],
+    },
 });
 
 class TimeTable extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.classes = props.classes;
     }
 
-    render(){
+    render() {
         return (
             <Paper className={this.classes.root}>
                 <Table className={this.classes.table}>
@@ -38,7 +43,9 @@ class TimeTable extends Component {
                     </TableHead>
                     <TableBody>
                         {this.props.items.map(item => (
-                            <TableRow key={item.id}>
+                            <TableRow
+                                className={classNames({[this.classes.warning]: item.timeSpent > item.duration,})}
+                                key={item.id}>
                                 <TableCell component="th" scope="row">
                                     {item.name}
                                 </TableCell>
