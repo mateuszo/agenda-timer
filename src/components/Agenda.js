@@ -49,6 +49,23 @@ export default class Agenda extends Component {
         return new Date(expectedEndMillis).toLocaleTimeString();
     }
 
+    //TODO: refactor this...
+    handleNext = (event) => {
+        const currentItemIndex = this.state.currentItemIndex;
+        const itemsSize = this.state.items.size;
+        const increment = currentItemIndex + 1 < itemsSize ? 1 : 0;
+        this.setState({currentItemIndex: this.state.currentItemIndex + increment});
+
+        const isLastItem = currentItemIndex + 1 === itemsSize;
+        if(isLastItem){
+            clearInterval(this.interval);
+        }
+
+        if(currentItemIndex + 2 === itemsSize){
+            event.target.innerText = "Stop";
+        }
+    };
+
     render() {
         return (
             <div>
@@ -56,7 +73,7 @@ export default class Agenda extends Component {
                 <Timer item={this.getCurrentItem()} />
                 <br/>
                 <Button variant="contained"
-                        onClick={() => this.setState({currentItemIndex: this.state.currentItemIndex + 1})}>
+                        onClick={this.handleNext}>
                     Next
                 </Button>
                 <br/>
